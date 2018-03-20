@@ -2,6 +2,7 @@ package controllers;
 
 import db.DBHelper;
 import models.Department;
+import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
 import spark.ModelAndView;
 
@@ -42,5 +43,18 @@ public class DepartmentsController {
             return null;
         }, new VelocityTemplateEngine());
 
+
+        post("/departments/:id/delete", (req, res) -> {
+            int departmentId = Integer.parseInt(req.queryParams(":id"));
+            Department department = DBHelper.find(departmentId, Department.class);
+            DBHelper.delete(department);
+            res.redirect("/departments");
+            return null;
+        },new VelocityTemplateEngine());
+
+
+        Spark.exception(Exception.class, (exception, request, response) -> {
+            exception.printStackTrace();
+        });
     }
 }

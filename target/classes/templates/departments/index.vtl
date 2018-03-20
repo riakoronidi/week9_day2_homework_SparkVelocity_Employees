@@ -12,6 +12,14 @@
         #foreach($department in $departments)
         <tr>
             <td>$department.getTitle()</td>
+            <td>
+                <form action="/departments/$department.getId()/delete" method="post">
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+            <td>
+                <a href="/departments/$department.getId()/edit">Edit</a>
+            </td>
         </tr>
         #end
 
